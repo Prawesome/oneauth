@@ -64,7 +64,7 @@ Strategy.prototype.authenticate = function (req, options) {
      * @param {Object} info
      * @returns {*}
      */
-    function verified(err, user, info) {
+    const verified = (err, user, info) => {
         if (err) {
             return self.error(err)
         }
@@ -91,7 +91,7 @@ Strategy.prototype.authenticate = function (req, options) {
             "institute-id": self._instituteId
         },
         form: loginForm
-    }, function (err, resp, body) {
+    }, (err, resp, body) => {
         if (err || resp.statusCode != 200) {
             return self.fail(err, 500)
         }
@@ -103,7 +103,7 @@ Strategy.prototype.authenticate = function (req, options) {
                     "institute-id": self._instituteId,
                     "access-token": accessToken
                 }
-            }, function (error, response, userdata) {
+            }, (error, response, userdata) => {
                 if (err || resp.statusCode != 200) {
                     return self.fail(err, 500)
                 }

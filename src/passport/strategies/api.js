@@ -10,11 +10,11 @@ const debug = require('debug')('oauth:strategies:api')
 
 const bearerStrategy = new BearerStrategy(
     {passReqToCallback: true},
-    function (req, token, done) {
+    (req, token, done) => {
         models.AuthToken.findOne({
             where: {token: token},
             include: [models.User, models.Client]
-        }).then(function (authToken) {
+        }).then( authToken => {
             if (!authToken) {
                 return done(null, false)
             }
@@ -36,7 +36,7 @@ const bearerStrategy = new BearerStrategy(
             }
 
             return done(null, null, info)
-        }).catch((err) => debug(err))
+        }).catch( err => debug(err))
     })
 
 module.exports = {
